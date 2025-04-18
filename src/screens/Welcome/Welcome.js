@@ -1,5 +1,6 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 import CustomButton from '../../components/CustomButton'
 
@@ -41,50 +42,52 @@ const Welcome = ({}) => {
     }
 
     return (
-        <ImageBackground
-            source={require('../../../assets/bg/bgGrey.png')}
-            style={{flex: 1, }}
-            imageStyle={{transform: [{translateY: 400}], }}
-        >
-            <View style={styles.main}>
-                <View style={styles.content}>
-                    <View style={styles.columnOne}>
-                        <View style={styles.logoView}>
-                            <Image style={styles.logoImg} source={require('../../../assets/splash-icon.png')}/>
+        <SafeAreaView style={{flex: 1, paddingTop: 9}}>
+            <ImageBackground
+                source={require('../../../assets/bg/bgGrey.png')}
+                style={{flex: 1, }}
+                imageStyle={{transform: [{translateY: 400}], }}
+            >
+                <View style={styles.main}>
+                    <View style={styles.content}>
+                        <View style={styles.columnOne}>
+                            <View style={styles.logoView}>
+                                <Image style={styles.logoImg} source={require('../../../assets/splash-icon.png')}/>
+                            </View>
+
+                            {columnOneArr.map((item, i) => 
+                                <View key={i} style={styles.columnItem}>
+                                    <View style={styles.images}>
+                                        {item.src.map((el, index) => 
+                                            <Image key={index} style={index === 1 ? styles.middleImg : null} source={el}/>
+                                        )}
+                                    </View>
+                                    <Text style={styles.text}>{item.text}</Text>
+                                </View>
+                            )}
+
                         </View>
 
-                        {columnOneArr.map((item, i) => 
-                            <View key={i} style={styles.columnItem}>
-                                <View style={styles.images}>
-                                    {item.src.map((el, index) => 
-                                        <Image key={index} style={index === 1 ? styles.middleImg : null} source={el}/>
-                                    )}
+                        <View style={styles.columnTwo}>
+                            {columnTwoArr.map((item, i) => 
+                                <View key={i} style={styles.columnItem}>
+                                    <View style={styles.images}>
+                                        {item.src.map((el, index) => 
+                                            <Image key={index} style={index === 1 ? styles.middleImg : null} source={el}/>
+                                        )}
+                                    </View>
+                                    <Text style={styles.text}>{item.text}</Text>
                                 </View>
-                                <Text style={{fontFamily: 'Inter-Regular'}}>{item.text}</Text>
-                            </View>
-                        )}
-
+                            )}
+                        </View>
                     </View>
-
-                    <View style={styles.columnTwo}>
-                        {columnTwoArr.map((item, i) => 
-                            <View key={i} style={styles.columnItem}>
-                                <View style={styles.images}>
-                                    {item.src.map((el, index) => 
-                                        <Image key={index} style={index === 1 ? styles.middleImg : null} source={el}/>
-                                    )}
-                                </View>
-                                <Text style={{fontFamily: 'Inter-Regular'}}>{item.text}</Text>
-                            </View>
-                        )}
+                    <View>
+                        <Text onPress={handleSignIn} style={styles.signUp}>Sign in</Text>
+                        <CustomButton bolder={true} label='Sign Up' onPressFunc={handleSignUp}/>
                     </View>
                 </View>
-                <View>
-                    <Text onPress={handleSignIn} style={styles.signUp}>Sign in</Text>
-                    <CustomButton bolder={true} label='Sign Up' onPressFunc={handleSignUp}/>
-                </View>
-            </View>
-        </ImageBackground>
+            </ImageBackground>
+        </SafeAreaView>
         
     )
 }
@@ -107,7 +110,9 @@ const styles = StyleSheet.create({
         color: '#FA8A34',
         textAlign: 'center',
         marginBottom: 15,
-        fontFamily: 'Inter-Regular'
+        fontWeight: 600,
+        fontFamily: 'Inter-Regular',
+        fontSize: 15
     },
     columnOne: {
         width: '48%'
@@ -132,6 +137,10 @@ const styles = StyleSheet.create({
         gap: 7,
         position: 'relative'
     },
+    text: {
+        fontFamily: 'Inter-Regular', 
+        fontSize: 12
+    },  
     logoView: {
         marginTop: 10,
         height: 136,
@@ -145,7 +154,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: 0,
         left: 25,
-    zIndex: 2
+        zIndex: 2
     }
 
     

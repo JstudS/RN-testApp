@@ -1,10 +1,11 @@
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 
 const CustomButton = ({ label, onPressFunc, bolder}) => {
   return (
     <View>
-      <Pressable
+      <TouchableOpacity
+        activeOpacity={0.6}
         style={{
           width: '100%',
           height: '48px',
@@ -12,13 +13,12 @@ const CustomButton = ({ label, onPressFunc, bolder}) => {
           padding: 12,
           borderRadius: 16,
           alignItems: 'center',
-          marginTop: 5,
-          fontFamily: 'Inter-Regular' 
+          marginBottom: 6,
         }}
         onPress={() => onPressFunc()}
       >
-        <Text style={{ color: '#FFFFFF', fontWeight: bolder ? '600' : '500' }}>{label}</Text>
-      </Pressable>
+          <Text style={{ color: '#FFFFFF', fontWeight: bolder ? 600 : 500 , fontFamily: 'Inter-Regular', fontSize: 15 }}>{label}</Text>
+      </TouchableOpacity>
     </View>
     
   )

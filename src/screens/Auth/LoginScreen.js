@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ImageBackground } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import * as Keychain from 'react-native-keychain'
+import { SafeAreaView } from 'react-native-safe-area-context';
+import * as SecureStore from 'expo-secure-store';
 import HeaderComponent from '../../components/HeaderComponent';
 import CustomButton from '../../components/CustomButton';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccsess } from '../../store/slices/authSlice';
+import ArrowDropdown from '../../components/ArrowDropdown';
 
 const LoginScreen = () => {
   const { control, handleSubmit } = useForm();
@@ -23,23 +25,32 @@ const LoginScreen = () => {
   const onSubmit = async (data) => {
     try {
       const res = await axios.post('https://dummyjson.com/auth/login', {
-        username: 'kminchelle',
-        password: '0lelplR',
+        username: data.email,
+        password: data.password,
       },  {
         headers: { 'Content-Type': 'application/json' }
       })
-      const token = res.data.token
-
-      await Keychain.setGenericPassword('token', token)
-      dispatch(loginSuccsess(token))
+      const token = res.data.accessToken
+      const refreshToken = res.data.refreshToken
+      await SecureStore.setItemAsync('token', token)
+      await SecureStore.setItemAsync('refreshToken', refreshToken)
+      dispatch(loginSuccsess({ token: token }))
       navigation.replace('PinSetup')
     } catch (err) {
+      setIsLoginError(true)
       console.warn('Login failed', err.message)
     } 
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setIsLoginError(false);
+    }, [])
+  )
+
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#EBEFF5'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#EBEFF5', position: 'relative'}}>
+      <ArrowDropdown navigation={navigation}/>
       <ImageBackground
         source={require('../../../assets/bg/bgGrey.png')}
         style={{
@@ -56,10 +67,9 @@ const LoginScreen = () => {
         >
           <View style={styles.container}> 
             <HeaderComponent title={'Login'}/>
-            
+
             <View style={styles.wrapper}>
-              {/* TYT sdelat proverky ! */}
-              <Text style={{display: isLoginError ? 'flex' : 'none', color: '#D63C41', marginLeft: 16, fontFamily: 'Inter-Regular'}}>Error: Invalid E-mail or Password</Text>
+              <Text style={{display: isLoginError ? 'flex' : 'none', color: '#D63C41', marginLeft: 16, fontFamily: 'Inter-Regular', fontSize: 15}}>Error: Invalid E-mail or Password</Text>
               <Text style={styles.title}>E-mail</Text>
               <Controller
                 control={control}
@@ -81,7 +91,11 @@ const LoginScreen = () => {
             </View>
           
             <View style={styles.wrapper}>
-              <Text style={styles.title}>Password</Text>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between', }}>
+                <Text style={styles.title}>Password</Text>
+                <Text style={{display: isLoginError ? 'flex' : 'none', color: '#FA8A34', fontFamily: 'Inter-Regular', marginRight: 15, fontSize: 15}}>Forgot?</Text>
+              </View>
+              
               <Controller
                 control={control}
                 name="password"
@@ -101,8 +115,8 @@ const LoginScreen = () => {
                         >
                           <Image  source={require('../../../assets/EyeRed.png')}/>
                         </TouchableOpacity> 
-                        <Text>TODO " FORGOT ?" HERE</Text>
-                        {isLoginError ? <Image style={{position: 'absolute', top: 15, right: 15}} source={require('../../../assets/info.png')}/> : null}
+
+                        {isLoginError ? <Image style={{position: 'absolute', top: 13, right: 15}} source={require('../../../assets/info.png')}/> : null}
                     </View>
                   </View>
                 )}
@@ -123,12 +137,12 @@ const LoginScreen = () => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    gap: 10
+    gap: 10,
   },
   container: {
     width: '100%',
     position: 'absolute',
-    top: 80,
+    top: 100,
     padding: 16,
     justifyContent: 'space-between'
   },
@@ -143,7 +157,8 @@ const styles = StyleSheet.create({
   title: {
     color: '#606773',
     marginLeft: 16,
-    fontFamily: 'Inter-Regular'
+    fontFamily: 'Inter-Regular',
+    fontSize: 15
   },
   inputContainer: {
     marginBottom: 20,
@@ -154,6 +169,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     paddingLeft: 16,
+    fontSize: 15
   },
   error: {
     color: 'red',

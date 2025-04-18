@@ -7,27 +7,26 @@ import RegistrationScreen from '../screens/Auth/RegistrationScreen';
 import PinSetupScreen from '../screens/Auth/PinSetupScreen';
 import PinEnterScreen from '../screens/Auth/PinEnterScreen';
 import { useSelector } from 'react-redux';
+import { NavigationContainer } from '@react-navigation/native';
 
 const RootNavigation = () => {
     const Stack = createStackNavigator()
     const isLoggedIn = useSelector(state => state.auth.isLoggedIn)
     
-    // screenOptions={{ headerShown: false }} ВПИСАТЬ В АТРИБУТ НАВИГАТОР , коррекция компонентов
-    
   return (
-    <Stack.Navigator initialRouteName="Welcome" >
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={ !isLoggedIn ? 'Welcome' : 'Home'} screenOptions={{ headerShown: false }} >
+
         <Stack.Screen name="Welcome" component={Welcome} />
-        {!isLoggedIn ? 
-            <>
-                <Stack.Screen name="Login" component={LoginScreen} />
-                <Stack.Screen name="PinSetup" component={PinSetupScreen} />
-            </>
-            :
-            <Stack.Screen name="Home" component={HomeScreen} />
-        }
         <Stack.Screen name="Registration" component={RegistrationScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="PinSetup" component={PinSetupScreen} />
         <Stack.Screen name="PinEnter" component={PinEnterScreen} />
-    </Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} />
+    
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   )
 }
 

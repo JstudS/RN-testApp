@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity, Image, SafeAreaView, ImageBackground } from 'react-native';
+import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderComponent from '../../components/HeaderComponent';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import ArrowDropdown from '../../components/ArrowDropdown';
 
 const RegistrationScreen = () => {
   const { control, handleSubmit, formState: { errors } } = useForm();
@@ -13,11 +15,12 @@ const RegistrationScreen = () => {
     setIsPasswordVisible(!isPasswordVisible)
   }
   const onSubmit = () => {
-    navigation.replace('Home')
+    console.log('Registration done')
   };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#EBEFF5'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#EBEFF5', position: 'relative'}}>
+      <ArrowDropdown navigation={navigation}/>
       <ImageBackground
         source={require('../../../assets/bg/bgGrey.png')}
         style={{
@@ -134,7 +137,7 @@ const styles = StyleSheet.create({
   container: {
     width: '100%',
     position: 'absolute',
-    top: 80,
+    top: 128,
     padding: 16,
     justifyContent: 'space-between'
   },
@@ -151,7 +154,8 @@ const styles = StyleSheet.create({
   title: {
     color: '#606773',
     marginLeft: 16,
-    fontFamily: 'Inter-Regular'
+    fontFamily: 'Inter-Regular',
+    fontSize: 15
   },
   inputContainer: {
     marginBottom: 20,
@@ -162,12 +166,15 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 16,
     paddingLeft: 16,
+    fontFamily: 'Inter-Regular',
+    fontSize: 15
   },
   error: {
     color: 'red',
     fontSize: 12,
     marginLeft: 16,
-    marginTop: 4
+    marginTop: 4,
+    fontFamily: 'Inter-Regular',
   },
 });
 
