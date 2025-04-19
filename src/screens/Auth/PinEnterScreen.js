@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { logout } from '../../store/slices/authSlice'
 import { removeTokenFromSecureStore } from '../../utlis/secureStore'
+import { setLanguage } from '../../store/slices/i18nSlice'
 
 const PinEnterScreen = ({ navigation }) => {
     const [pin, setPin] = useState('')
@@ -68,6 +69,7 @@ const PinEnterScreen = ({ navigation }) => {
 
     const changeAccount = () => {
       removeTokenFromSecureStore()
+      dispatch(setLanguage('en'))
       dispatch(logout())
       navigation.replace('Login')
     }

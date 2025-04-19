@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../store/slices/authSlice'
 import { useTranslation } from 'react-i18next'
 import { removeTokenFromSecureStore } from '../../utlis/secureStore'
+import { setLanguage } from '../../store/slices/i18nSlice'
 
 const SettingsScreen = ({ navigation }) => {
     const userData = useSelector(state => state.auth.userProfile)
@@ -15,6 +16,7 @@ const SettingsScreen = ({ navigation }) => {
 
     const logoutUser = () => {
         removeTokenFromSecureStore()
+        dispatch(setLanguage('en'))
         dispatch(logout())
         navigation.replace('Welcome')
     }
