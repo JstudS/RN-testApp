@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  language: 'en', 
+    language: 'en',
 }
 
 const i18nSlice = createSlice({
-  name: 'i18n',
-  initialState,
-  reducers: {
-    setLanguage: (state, action) => {
-      state.language = action.payload
+    name: 'i18n',
+    initialState,
+    reducers: {
+        setLanguage: (state, action) => {
+            state.language = action.payload
+        },
     },
-  },
 })
 
 export const { setLanguage } = i18nSlice.actions

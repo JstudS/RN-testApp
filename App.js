@@ -42,9 +42,9 @@ const AuthLoader = () => {
 
     useEffect(() => {
       const checkAuth = async () => {
-        const creds = await SecureStore.getItemAsync('accessToken')
-        if (creds) {
-          dispatch(loginSuccess({ token: creds }))
+        const token = await SecureStore.getItemAsync('accessToken')
+        if (token) {
+          dispatch(loginSuccess())
         } else {
           dispatch(logout())
         }

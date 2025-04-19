@@ -25,15 +25,6 @@ persistQueryClient({
     maxAge: 1000 * 60 * 60 * 24
 })
 
-const fetchUserName = async (token) => {
-    const response = await authApi.get('/auth/me', {
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    return { firstName: response.data.firstName, lastName: response.data.lastName,}
-}
-
 const fetchPosts = async () => {
     const response = await contentApi.get('/posts?_limit=3')
     return response.data
@@ -44,17 +35,6 @@ const fetchComments = async () => {
     return response.data
 }
 
-export const useUser = () => {
-    const token = useSelector((state) => state.auth.token)
-    return useQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            const token = await SecureStore.getItemAsync('accessToken')
-            if (!token) throw new Error('No token')
-            return fetchUserName(token)
-        }
-    })
-}
 
 export const usePosts = () => {
     return useQuery({
