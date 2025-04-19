@@ -45,12 +45,12 @@ const styles = StyleSheet.create({
   },
   textCall: {
     color: '#009E81',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontSize: 15,
     fontWeight: 500, 
   },
   textTask: {
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontSize: 15,
     fontWeight: 500,
   },

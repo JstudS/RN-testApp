@@ -11,7 +11,7 @@ const PostDetailScreen = ({ route, navigation }) => {
     const { post } = route.params
     const { t } = useTranslation()
 
-    if (isError && !data) return <Text>Something went wrong</Text>
+
 
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F2F3F5'}}>
@@ -20,7 +20,7 @@ const PostDetailScreen = ({ route, navigation }) => {
 
                 <View style={styles.headerBgContainer}>
                     <View style={styles.headerContent}>
-                        <Text style={[styles.headerTitle, styles.interFont]}>{post.title}</Text>
+                        <Text style={[styles.headerTitle, styles.interFontRegular]}>{post.title}</Text>
                         <Image source={require('../../../assets/book.png')}/>
                     </View>
                 </View>
@@ -28,26 +28,29 @@ const PostDetailScreen = ({ route, navigation }) => {
 
                 
                 <View style={styles.aboutWrapper}>
-                    <Text style={[styles.title, styles.interFont]}>{t('about')}</Text>
+                    <Text style={[styles.title, styles.interFontRegular]}>{t('about')}</Text>
                     <View style={styles.aboutContainer}>
-                        <Text style={[styles.aboutBody, styles.interFont]}>{post.body}</Text>
+                        <Text style={[styles.aboutBody, styles.interFontRegular]}>{post.body}</Text>
                     </View>
                 </View>
 
                 <View style={styles.commentsWrapper}>
-                    <Text style={[styles.title, styles.interFont]}>{t('comments')}</Text>
-                    {isLoading ? 
-                        <Text>Loading...</Text> 
+                    <Text style={[styles.title, styles.interFontRegular]}>{t('comments')}</Text>
+                    { isError && !data ? 
+                        <Text>You're offline. Please check your connection to view posts.</Text>
                         :
-                        data.map( item =>(
-                            <View key={item.id} style={styles.commentsContainer}>
-                                <View>
-                                    <Text style={[styles.commentsName, styles.interFont]}>{item.name}</Text>
-                                    <Text style={[styles.commentsEmail, styles.interFont]}>{item.email}</Text>
+                        isLoading ? 
+                            <Text>Loading...</Text> 
+                            :
+                            data.map( item =>(
+                                <View key={item.id} style={styles.commentsContainer}>
+                                    <View>
+                                        <Text style={[styles.commentsName, styles.interFontBold]}>{item.name}</Text>
+                                        <Text style={[styles.commentsEmail, styles.interFontBold]}>{item.email}</Text>
+                                    </View>
+                                    <Text style={[styles.commentsBody, styles.interFontRegular]}>{item.body}</Text>
                                 </View>
-                                <Text style={[styles.commentsBody, styles.interFont]}>{item.body}</Text>
-                            </View>
-                        ))
+                            ))
                     }
                 </View>
             </ScrollView>
@@ -79,8 +82,11 @@ const styles = StyleSheet.create({
         fontSize: 28,
         textAlign: 'center',
     },
-    interFont: {
+    interFontRegular: {
         fontFamily: 'Inter-Regular',
+    },
+    interFontBold: {
+        fontFamily: 'Inter-Bold',
     },
     aboutWrapper: {
         marginTop: 33,

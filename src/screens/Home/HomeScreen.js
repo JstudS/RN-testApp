@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         name: {
         fontWeight: 700,
         color: '#FFFFFF',
-        fontFamily: 'Inter-Regular',
+        fontFamily: 'Inter-Bold',
         fontSize: 28,
     },
 })

@@ -127,7 +127,6 @@ const RegistrationScreen = () => {
             
             <View style={{position: 'absolute', bottom: 0, width: '100%', paddingHorizontal: 16, marginBottom: 14}}>
                 <CustomButton label={t('continue')} onPressFunc={handleSubmit(onSubmit)}/>
-                <Text></Text>
             </View>
         </SafeAreaView>
     )

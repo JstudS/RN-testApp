@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginBottom: 15,
         fontWeight: 600,
-        fontFamily: 'Inter-Regular',
+        fontFamily: 'Inter-Bold',
         fontSize: 15
     },
     columnOne: {
@@ -145,6 +145,7 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: 'Inter-Regular', 
+        fontWeight: 400,
         fontSize: 12
     },  
     logoView: {

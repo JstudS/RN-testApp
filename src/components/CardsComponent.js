@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   cardText: {
     fontWeight: 500,
     color: '#FFFFFF',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontSize: 15,
     lineHeight: 24,
     width: 133
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   stepsText: {
     fontWeight: 500,
     color: '#FFFFFF',
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontSize: 15,
   }
 })

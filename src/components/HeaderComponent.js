@@ -9,7 +9,7 @@ const HeaderComponent = ({title}) => {
             <View style={{flexDirection: 'row', gap: 10,}}>
             <Image style={{width: 48, height: 52, marginLeft: 10, marginBottom: 40}} source={route === 'Login' ? require('../../assets/imgAuth.png') : require('../../assets/imgRegister.png')}/>
             <View>
-                <Text style={{fontFamily: 'Inter-Regular', fontSize: 15}}>{title}</Text>
+                <Text style={{fontFamily: 'Inter-Bold', fontSize: 15}}>{title}</Text>
                 <Text style={{color: 'Personal Account', fontFamily: 'Inter-Regular', fontWeight: 400, fontSize: 15}}>Personal Account</Text>
             </View>
             </View>

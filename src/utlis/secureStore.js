@@ -18,8 +18,9 @@ export const saveRefreshTokenToSecureStore = async (token) => {
   }
 }
 
-export const removeRefreshTokenFromSecureStore = async () => {
+export const removeTokenFromSecureStore = async () => {
   try {
+    await SecureStore.deleteItemAsync('accessToken');
     await SecureStore.deleteItemAsync('refreshToken')
   } catch (error) {
     console.error('Error removing token from SecureStore:', error)

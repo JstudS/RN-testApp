@@ -6,6 +6,7 @@ import FooterComponent from '../../components/FooterComponent'
 import { useDispatch, useSelector } from 'react-redux'
 import { logout } from '../../store/slices/authSlice'
 import { useTranslation } from 'react-i18next'
+import { removeTokenFromSecureStore } from '../../utlis/secureStore'
 
 const SettingsScreen = ({ navigation }) => {
     const userData = useSelector(state => state.auth.userProfile)
@@ -13,6 +14,7 @@ const SettingsScreen = ({ navigation }) => {
     const { t } = useTranslation()
 
     const logoutUser = () => {
+        removeTokenFromSecureStore()
         dispatch(logout())
         navigation.replace('Welcome')
     }
@@ -32,7 +34,7 @@ const SettingsScreen = ({ navigation }) => {
 
                 <View style={styles.settingsWrapper}>
                     <View style={styles.settingsBase}>
-                        <Text style={[styles.text, styles.interFont]}>{t('basic')}</Text>
+                        <Text style={[styles.text, styles.interFontRegular]}>{t('basic')}</Text>
                         <TouchableOpacity style={[styles.body, styles.border]} onPress={() => navigation.navigate('Language')}>
                             <View style={styles.bodyBase}>
                                 <Image source={require('../../../assets/Globe.png')}/>
@@ -43,7 +45,7 @@ const SettingsScreen = ({ navigation }) => {
                     </View>
 
                     <View style={styles.settingsBase}>
-                        <Text style={[styles.text, styles.interFont]}>{t('other')}</Text>
+                        <Text style={[styles.text, styles.interFontRegular]}>{t('other')}</Text>
                         <TouchableOpacity style={[styles.body, styles.border]} onPress={logoutUser}>
                             <View style={styles.bodyBase}>
                                 <Image source={require('../../../assets/logout.png')}/>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 500,
         lineHeight: 24,
-        marginBottom: 2
+        marginBottom: 2,
     },
     settingsWrapper: {
         gap: 32

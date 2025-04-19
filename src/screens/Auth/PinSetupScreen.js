@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   keyText: {
     fontSize: 28,
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontWeight: 700
   },
   button: {

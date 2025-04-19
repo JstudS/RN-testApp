@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         borderRadius: 16
     },
     interFont: {
-        fontFamily: 'Inter-Regular'
+        fontFamily: 'Inter-Bold'
     },  
     border: {
         borderWidth: 1,

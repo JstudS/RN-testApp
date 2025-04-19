@@ -7,17 +7,17 @@ import HeaderComponent from '../../components/HeaderComponent'
 import CustomButton from '../../components/CustomButton'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { loginSuccess } from '../../store/slices/authSlice'
+import { loginSuccess, logout } from '../../store/slices/authSlice'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import { useTranslation } from 'react-i18next'
 
 const LoginScreen = ({ navigation }) => {
-    const { control, handleSubmit } = useForm()
+    const { control, handleSubmit, reset } = useForm()
     const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false) 
     const [isLoginError, setIsLoginError] = useState(false)
     const { t } = useTranslation()
-
+    
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible)
     }
@@ -42,8 +42,10 @@ const LoginScreen = ({ navigation }) => {
                     lastName: res.data.lastName
                 }
             }))
+            
             navigation.replace('PinSetup')
         } catch (err) {
+            reset()
             setIsLoginError(true)
             console.warn('Login failed', err.message)
         } 
@@ -71,31 +73,31 @@ const LoginScreen = ({ navigation }) => {
                         <HeaderComponent title={'Login'}/>
 
                         <View style={styles.wrapper}>
-                            <Text style={{display: isLoginError ? 'flex' : 'none', color: '#D63C41', marginLeft: 16, fontFamily: 'Inter-Regular', fontSize: 15}}>Error: Invalid E-mail or Password</Text>
+                            <Text style={{display: isLoginError ? 'flex' : 'none', color: '#D63C41', marginLeft: 16, fontFamily: 'Inter-Bold', fontSize: 15}}>Error: Invalid E-mail or Password</Text>
                             <Text style={styles.title}>E-mail</Text>
                             <Controller
-                            control={control}
-                            name="email"
-                            render={({ field: { onChange, value } }) => (
-                                <View style={styles.inputContainer}>
-                                <View style={styles.inputWrapper }>
-                                    <TextInput
-                                    style={styles.input}
-                                    placeholder="Enter your e-mail"
-                                    value={value}
-                                    onChangeText={onChange}
-                                    />
-                                    {isLoginError ? <Image style={{position: 'absolute', top: 15, right: 15}} source={require('../../../assets/info.png')}/> : null}
-                                </View>
-                                </View>
-                            )}
+                                control={control}
+                                name="email"
+                                render={({ field: { onChange, value } }) => (
+                                    <View style={styles.inputContainer}>
+                                    <View style={styles.inputWrapper }>
+                                        <TextInput
+                                            style={styles.input}
+                                            placeholder="Enter your e-mail"
+                                            value={value}
+                                            onChangeText={onChange}
+                                        />
+                                        {isLoginError ? <Image style={{position: 'absolute', top: 15, right: 15}} source={require('../../../assets/info.png')}/> : null}
+                                    </View>
+                                    </View>
+                                )}
                             />
                         </View>
                         
                         <View style={styles.wrapper}>
                             <View style={{flexDirection: 'row', justifyContent: 'space-between', }}>
-                            <Text style={styles.title}>Password</Text>
-                            <Text style={{display: isLoginError ? 'flex' : 'none', color: '#FA8A34', fontFamily: 'Inter-Regular', marginRight: 15, fontSize: 15}}>Forgot?</Text>
+                                <Text style={styles.title}>Password</Text>
+                                <Text style={{display: isLoginError ? 'flex' : 'none', color: '#FA8A34', fontFamily: 'Inter-Bold', marginRight: 15, fontSize: 15}}>Forgot?</Text>
                             </View>
                             
                             <Controller
@@ -192,7 +194,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 15,
     fontWeight: 600,
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontSize: 15
   }
 })

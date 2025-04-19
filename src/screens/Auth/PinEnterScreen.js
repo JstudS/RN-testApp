@@ -10,6 +10,7 @@ import PinHeader from '../../components/PinHeader'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { logout } from '../../store/slices/authSlice'
+import { removeTokenFromSecureStore } from '../../utlis/secureStore'
 
 const PinEnterScreen = ({ navigation }) => {
     const [pin, setPin] = useState('')
@@ -66,6 +67,7 @@ const PinEnterScreen = ({ navigation }) => {
     )
 
     const changeAccount = () => {
+      removeTokenFromSecureStore()
       dispatch(logout())
       navigation.replace('Login')
     }
@@ -213,7 +215,7 @@ const styles = StyleSheet.create({
   },
   keyText: {
     fontSize: 28,
-    fontFamily: 'Inter-Regular',
+    fontFamily: 'Inter-Bold',
     fontWeight: 700
   },
   button: {

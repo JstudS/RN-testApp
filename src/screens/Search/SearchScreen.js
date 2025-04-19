@@ -4,11 +4,12 @@ import FooterComponent from '../../components/FooterComponent'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { usePosts } from '../../api/queryClient'
 import { useFocusEffect } from '@react-navigation/native'
+import { useTranslation } from 'react-i18next'
 
 const SearchScreen = ({ navigation }) => {
     const { data, isLoading, isError} = usePosts()
     const [search, setSearch] = useState('')
-
+    const { t } = useTranslation()
     const filtered = useMemo(() => {
         const q = search.toLowerCase()
         return data.filter(post => 
@@ -30,12 +31,12 @@ const SearchScreen = ({ navigation }) => {
         <SafeAreaView style={{flex: 1, position: 'relative', backgroundColor: '#F2F3F5'}}>
             <View style={styles.wrapper}>
                 <View style={styles.header}>
-                    <Text style={[styles.mainTitle, styles.interFont]}>Search</Text>
+                    <Text style={[styles.mainTitle, styles.interFontBold]}>{t('search')}</Text>
                     <View style={styles.search}>
                         <Image source={require('../../../assets/Search.png')}/>
                         <TextInput
-                            style={[styles.input, styles.interFont]}
-                            placeholder="Search Products..."
+                            style={[styles.input, styles.interFontRegular]}
+                            placeholder={t('searchProducts')}
                             value={search}
                             onChangeText={setSearch}
                         />
@@ -50,8 +51,8 @@ const SearchScreen = ({ navigation }) => {
                         renderItem={({ item }) => {
                             return (
                                 <TouchableOpacity style={styles.postInfo} onPress={() => navigation.navigate('PostDetails', { post: item })}>
-                                    <Text style={[styles.title, styles.interFont]}>ID: {item.id}</Text>
-                                    <Text style={[styles.text, styles.interFont]}>{item.title}</Text>
+                                    <Text style={[styles.title, styles.interFontBold]}>ID: {item.id}</Text>
+                                    <Text style={[styles.text, styles.interFontRegular]}>{item.title}</Text>
                                 </TouchableOpacity>
                             )
                         }}
@@ -63,8 +64,8 @@ const SearchScreen = ({ navigation }) => {
                         renderItem={({ item }) => {
                             return (
                                 <TouchableOpacity style={styles.postInfo} onPress={() => navigation.navigate('PostDetails', { post: item })}>
-                                    <Text style={[styles.title, styles.interFont]}>ID: {item.id}</Text>
-                                    <Text style={[styles.text, styles.interFont]}>{item.title}</Text>
+                                    <Text style={[styles.title, styles.interFontBold]}>ID: {item.id}</Text>
+                                    <Text style={[styles.text, styles.interFontRegular]}>{item.title}</Text>
                                 </TouchableOpacity>
                             )   
                         }}
@@ -86,8 +87,11 @@ const styles = StyleSheet.create({
     header: {
         gap: 16
     },
-    interFont: {
+    interFontRegular: {
         fontFamily: 'Inter-Regular'
+    },  
+    interFontBold: {
+        fontFamily: 'Inter-Bold'
     },  
     input: {
         color: '#606773',

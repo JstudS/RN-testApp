@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
       color: '#171718',
       fontSize: 18,
       fontWeight: 500,
-      fontFamily: 'Inter-Regular'
+      fontFamily: 'Inter-Bold'
     },
     postBody:{
       color: '#414141',
