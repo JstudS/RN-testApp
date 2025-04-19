@@ -4,21 +4,21 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 const TestTaskComp = () => {
   return (
     <View style={styles.testTask}>
-        <View style={styles.testTaskWrapper}>
-            <View style={styles.testTaskColOne}>
-            <View>
-                <Text style={styles.textTask}>Test task</Text>
-                <Text style={styles.textLorem}>Lorem ipsum</Text>
-            </View>
-            <Text style={styles.textCall}>Go to call</Text>
-            </View>
-            <View style={styles.testTaskColTwo}>
-            <Image source={require('../../assets/arrow-dropdownGreen.png')}/>
-            </View>
-            <View style={styles.testTaskColThree}>
-            <Image source={require('../../assets/testTask.png')}/>
-            </View>
-        </View>
+      <View style={styles.testTaskWrapper}>
+          <View style={styles.testTaskColOne}>
+          <View>
+              <Text style={styles.textTask}>Test task</Text>
+              <Text style={styles.textLorem}>Lorem ipsum</Text>
+          </View>
+              <Text style={styles.textCall}>Go to call</Text>
+          </View>
+          <View style={styles.testTaskColTwo}>
+              <Image source={require('../../assets/arrow-dropdownGreen.png')}/>
+          </View>
+          <View style={styles.testTaskColThree}>
+              <Image source={require('../../assets/testTask.png')}/>
+          </View>
+      </View>
     </View>
   )
 }

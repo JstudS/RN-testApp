@@ -1,37 +1,41 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CustomButton from '../../components/CustomButton'
+import { useTranslation } from 'react-i18next';
 
-const columnOneArr = [ 
-    {
-        text: 'Lorem Ipsum', 
-        src:[require(`../../../assets/icons/icon11.png`), require(`../../../assets/icons/icon12.png`), require(`../../../assets/icons/icon13.png`)]
-    }, 
-    {
-        text: 'Lorem Ipsum 2', 
-        src:[require(`../../../assets/icons/icon31.png`), require(`../../../assets/icons/icon32.png`), require(`../../../assets/icons/icon33.png`)]
-    },
-]
 
-const columnTwoArr = [ 
-    {
-        text: 'Lorem Ipsum 2', 
-        src:[require(`../../../assets/icons/icon21.png`), require(`../../../assets/icons/icon22.png`), require(`../../../assets/icons/icon23.png`)]
-    }, 
-    {
-        text: 'Lorem Ipsum 4', 
-        src:[require(`../../../assets/icons/icon41.png`), require(`../../../assets/icons/icon42.png`), require(`../../../assets/icons/icon43.png`)]
-    },
-    {
-        text: 'Lorem Ipsum 5', 
-        src:[require(`../../../assets/icons/icon51.png`), require(`../../../assets/icons/icon52.png`), require(`../../../assets/icons/icon53.png`)]
-    },
-]
 
 const Welcome = ({}) => {
     const navigation = useNavigation()
+    const { t } = useTranslation('welcome')
+
+    const columnOneArr = [ 
+        {
+            text: 'Crowd real estate', 
+            src:[require(`../../../assets/icons/icon11.png`), require(`../../../assets/icons/icon12.png`), require(`../../../assets/icons/icon13.png`)]
+        }, 
+        {
+            text: 'ETFs', 
+            src:[require(`../../../assets/icons/icon31.png`), require(`../../../assets/icons/icon32.png`), require(`../../../assets/icons/icon33.png`)]
+        },
+    ]
+    
+    const columnTwoArr = [ 
+        {
+            text: "Crowd lending", 
+            src:[require(`../../../assets/icons/icon21.png`), require(`../../../assets/icons/icon22.png`), require(`../../../assets/icons/icon23.png`)]
+        }, 
+        {
+            text: "Commodities", 
+            src:[require(`../../../assets/icons/icon41.png`), require(`../../../assets/icons/icon42.png`), require(`../../../assets/icons/icon43.png`)]
+        },
+        {
+            text: "Crypto", 
+            src:[require(`../../../assets/icons/icon51.png`), require(`../../../assets/icons/icon52.png`), require(`../../../assets/icons/icon53.png`)]
+        },
+    ]
 
     const handleSignIn = () => {
         navigation.navigate('Login')
@@ -82,8 +86,10 @@ const Welcome = ({}) => {
                         </View>
                     </View>
                     <View>
-                        <Text onPress={handleSignIn} style={styles.signUp}>Sign in</Text>
-                        <CustomButton bolder={true} label='Sign Up' onPressFunc={handleSignUp}/>
+                        <TouchableOpacity>
+                            <Text onPress={handleSignIn} style={styles.signUp}>{t('signIn')}</Text>
+                        </TouchableOpacity>
+                        <CustomButton bolder={true} label={t('signUp')} onPressFunc={handleSignUp}/>
                     </View>
                 </View>
             </ImageBackground>

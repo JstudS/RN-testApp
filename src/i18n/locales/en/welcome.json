@@ -1,0 +1,21 @@
+{
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "continue": "Continue",
+    "createAccount": "Create Account",
+    "changeAccount": "Change Account",
+    "yourName": "Your Name",
+    "beforeStart": "Before you Start",
+    "posts": "Posts",
+    "about": "About",
+    "comments": "Comments",
+    "back": "Back",
+    "createPin": "Create a Pin code",
+    "repeatPin": "Repeat a Pin code",
+    "digit": "enter 5 digit code",
+    "settings": "Settings",
+    "basic": "Basic",
+    "language": "Language",
+    "other": "Other",
+    "logout": "Log Out" 
+}
