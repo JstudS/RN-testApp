@@ -4,4 +4,4 @@ Data for auth :
 
 AVD tested: Pixel 8.
 
-Use npm start to run App.
+Use "npm start" to run App.
