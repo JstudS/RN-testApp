@@ -19,7 +19,7 @@ const RootNavigation = () => {
 
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={ !isLoggedIn ? 'Welcome' : 'Welcome'} screenOptions={{ headerShown: false }} >
+            <Stack.Navigator initialRouteName={ !isLoggedIn ? 'Welcome' : 'PinEnter'} screenOptions={{ headerShown: false }} >
                 <Stack.Screen name="Welcome" component={Welcome} />
                 <Stack.Screen name="Registration" component={RegistrationScreen} />
                 <Stack.Screen name="Login" component={LoginScreen} />

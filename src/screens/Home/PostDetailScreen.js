@@ -1,13 +1,15 @@
 import React from 'react'
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import CustomButton from '../../components/CustomButton'
 import { useComments } from '../../api/queryClient'
+import { useTranslation } from 'react-i18next'
 
 const PostDetailScreen = ({ route, navigation }) => {
     const { data, isLoading, isError } = useComments()
     const { post } = route.params
+    const { t } = useTranslation()
 
     if (isError && !data) return <Text>Something went wrong</Text>
 
@@ -17,26 +19,23 @@ const PostDetailScreen = ({ route, navigation }) => {
                 <ArrowDropdown navigation={navigation}/>
 
                 <View style={styles.headerBgContainer}>
-                    <Image
-                        style={styles.headerBg}
-                        source={require('../../../assets/bg/bgPostDetails.png')}
-                    />
+                    <View style={styles.headerContent}>
+                        <Text style={[styles.headerTitle, styles.interFont]}>{post.title}</Text>
+                        <Image source={require('../../../assets/book.png')}/>
+                    </View>
                 </View>
 
-                <View style={styles.headerContent}>
-                    <Text style={[styles.headerTitle, styles.interFont]}>{post.title}</Text>
-                    <Image source={require('../../../assets/book.png')}/>
-                </View>
+
                 
                 <View style={styles.aboutWrapper}>
-                    <Text style={[styles.title, styles.interFont]}>About</Text>
+                    <Text style={[styles.title, styles.interFont]}>{t('about')}</Text>
                     <View style={styles.aboutContainer}>
                         <Text style={[styles.aboutBody, styles.interFont]}>{post.body}</Text>
                     </View>
                 </View>
 
                 <View style={styles.commentsWrapper}>
-                    <Text style={[styles.title, styles.interFont]}>Comments</Text>
+                    <Text style={[styles.title, styles.interFont]}>{t('comments')}</Text>
                     {isLoading ? 
                         <Text>Loading...</Text> 
                         :
@@ -55,7 +54,7 @@ const PostDetailScreen = ({ route, navigation }) => {
 
             <View style={styles.buttonBg}>
                 <View style={styles.buttonContainer}>
-                    <CustomButton label={'Back'} onPressFunc={navigation.goBack}/>
+                    <CustomButton label={t('back')} onPressFunc={navigation.goBack}/>
                 </View>
             </View>
         </SafeAreaView>
@@ -64,20 +63,15 @@ const PostDetailScreen = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
     headerBgContainer: {
-        position: 'absolute',
-        top: 0,
         width: '100%',
-        height: 480
-    },
-    headerBg: {
-        height: '100%',
-        width: '100%',
-        objectFit: 'fill',
+        height: 480,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 25,
     },
     headerContent: {
         marginTop: 108,
         alignItems: 'center',
-        gap: 61
+        gap: 61,
     },
     headerTitle: {
         color: '#06070A',

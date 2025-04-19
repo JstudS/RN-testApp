@@ -1,10 +1,10 @@
 import React from 'react'
 import { Image, ImageBackground, StyleSheet, Text, View } from 'react-native'
 
-const CardsComponent = () => {
+const CardsComponent = ({ title }) => {
   return (
     <View style={styles.cards}>
-        <Text style={styles.cardsTitle}>Before you Start</Text>
+        <Text style={styles.cardsTitle}>{title}</Text>
         <View style={styles.cardsWrapper}>
             <ImageBackground style={styles.cardItem} source={require('../../assets/bg/bgCard.png')}>
                 <View style={styles.cardInfo}>

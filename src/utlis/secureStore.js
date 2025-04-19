@@ -1,6 +1,5 @@
 import * as SecureStore from 'expo-secure-store'
 
-
 export const getRefreshTokenFromSecureStore = async () => {
   try {
     const refreshToken = await SecureStore.getItemAsync('refreshToken')
@@ -11,7 +10,6 @@ export const getRefreshTokenFromSecureStore = async () => {
   }
 }
 
-
 export const saveRefreshTokenToSecureStore = async (token) => {
   try {
     await SecureStore.setItemAsync('refreshToken', token)
@@ -19,7 +17,6 @@ export const saveRefreshTokenToSecureStore = async (token) => {
     console.error('Error saving token to SecureStore:', error)
   }
 }
-
 
 export const removeRefreshTokenFromSecureStore = async () => {
   try {

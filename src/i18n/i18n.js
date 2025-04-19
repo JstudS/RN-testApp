@@ -1,7 +1,7 @@
-import i18n from "i18next";
-import { initReactI18next } from "react-i18next";
-import enWelcome from './locales/en/welcome.json'
-import enSignIn from './locales/en/signIn.json'
+import i18n from "i18next"
+import { initReactI18next } from "react-i18next"
+import enTranslation from './locales/en/translation.json'
+import arTranslation from './locales/ar/translation.json'
 
 i18n
     .use(initReactI18next)
@@ -10,11 +10,12 @@ i18n
         fallbackLng: 'en',
         resources: {
             en: {
-                welcome: enWelcome,
-                signIn: enSignIn
+                translation: enTranslation
+            },
+            ar: {
+                translation: arTranslation
             }
         },
-        ns: ['welcome', 'signIn'],
         interpolation: {
             escapeValue: false,
           },

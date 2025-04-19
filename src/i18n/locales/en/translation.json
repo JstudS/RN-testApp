@@ -17,5 +17,9 @@
     "basic": "Basic",
     "language": "Language",
     "other": "Other",
-    "logout": "Log Out" 
+    "logout": "Log Out",
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "search": "Search",
+    "profile": "Profile"  
 }

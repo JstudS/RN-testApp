@@ -1,18 +1,22 @@
 import React, { useCallback, useState } from 'react'
-import { View, Text, StyleSheet, Image, Pressable } from 'react-native'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { View, Text, StyleSheet, Image, Pressable, TouchableOpacity } from 'react-native'
+import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as LocalAuthentication from 'expo-local-authentication'
 import * as SecureStore from 'expo-secure-store'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import CustomButton from '../../components/CustomButton'
 import PinHeader from '../../components/PinHeader'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
+import { logout } from '../../store/slices/authSlice'
 
 const PinEnterScreen = ({ navigation }) => {
     const [pin, setPin] = useState('')
     const userData = useSelector(state => state.auth.userProfile)
-    
+    const { t } = useTranslation() 
+    const dispatch = useDispatch()
+
     const handlePress = (val) => {
         pin.length < 5 && setPin(prev => prev + val)
     }
@@ -61,6 +65,10 @@ const PinEnterScreen = ({ navigation }) => {
       }, [])
     )
 
+    const changeAccount = () => {
+      dispatch(logout())
+      navigation.replace('Login')
+    }
 
     return (
         <SafeAreaView style={{flex: 1}}>
@@ -70,11 +78,14 @@ const PinEnterScreen = ({ navigation }) => {
                 <View style={styles.pinHeader}>
                   <View style={styles.pinAccount}>
                       <PinHeader label={userData.email}/>
-                      <Text style={styles.changeAccount}>Change Account</Text>
+                      <TouchableOpacity onPress={changeAccount}>
+                        <Text style={styles.changeAccount}>{t('changeAccount')}</Text>
+                      </TouchableOpacity>
+                      
                   </View>
 
                   <View style={styles.digits}>
-                      <Text style={styles.subtitle}>enter 5 digit code:</Text>
+                      <Text style={styles.subtitle}>{t('digit')}:</Text>
                       <View style={styles.dots}>
                           {[...Array(5)].map((_, i) => (
                           <View
@@ -119,7 +130,7 @@ const PinEnterScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.button}>
-                <CustomButton label={'Continue'} onPressFunc={handleContinue}/>
+                <CustomButton label={t('continue')} onPressFunc={handleContinue}/>
             </View>
         </SafeAreaView>
 

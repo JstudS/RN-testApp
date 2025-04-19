@@ -1,20 +1,17 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React from 'react'
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import TestTaskComp from '../../components/TestTaskComp'
 import CardsComponent from '../../components/CardsComponent'
 import Posts from '../../components/Posts'
 import FooterComponent from '../../components/FooterComponent'
-import { useFocusEffect } from '@react-navigation/native'
-import { authApi } from '../../api/axios'
 import { useSelector } from 'react-redux'
-import { getRefreshTokenFromSecureStore } from '../../utlis/secureStore'
-import { useUser } from '../../api/queryClient'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
 
 
 const HomeScreen = ({ navigation }) => {
     const userData = useSelector(state => state.auth.userProfile)
-    
+    const { t } = useTranslation()
     return (
         <SafeAreaView style={{flex: 1, backgroundColor: '#F2F3F5'}}>
             <ScrollView style={{flexGrow: 1, position: 'relative'}}>
@@ -26,15 +23,15 @@ const HomeScreen = ({ navigation }) => {
                 </View>
                 
                 <View style={styles.header}>
-                    <Text style={styles.yourName}>Your name</Text>
+                    <Text style={styles.yourName}>{t('yourName')}</Text>
                     <Text style={styles.name}>{`${userData.firstName} ${userData.lastName}`}</Text>
                 </View>
 
                 <TestTaskComp />
                 
-                <CardsComponent />
+                <CardsComponent title={t('beforeStart')}/>
 
-                <Posts navigation={navigation} />
+                <Posts navigation={navigation} title={t('posts')}/>
             </ScrollView>
 
             <FooterComponent navigation={navigation} />

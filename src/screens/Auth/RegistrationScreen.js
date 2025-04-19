@@ -6,12 +6,14 @@ import HeaderComponent from '../../components/HeaderComponent'
 import CustomButton from '../../components/CustomButton'
 import { useNavigation } from '@react-navigation/native'
 import ArrowDropdown from '../../components/ArrowDropdown'
+import { useTranslation } from 'react-i18next'
 
 const RegistrationScreen = () => {
     const { control, handleSubmit, formState: { errors } } = useForm()
     const navigation = useNavigation()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false) 
-    
+    const { t } = useTranslation() 
+
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible)
     }
@@ -124,7 +126,7 @@ const RegistrationScreen = () => {
             </ImageBackground>
             
             <View style={{position: 'absolute', bottom: 0, width: '100%', paddingHorizontal: 16, marginBottom: 14}}>
-                <CustomButton label={'Continue'} onPressFunc={handleSubmit(onSubmit)}/>
+                <CustomButton label={t('continue')} onPressFunc={handleSubmit(onSubmit)}/>
                 <Text></Text>
             </View>
         </SafeAreaView>

@@ -23,8 +23,8 @@ const SearchScreen = ({ navigation }) => {
         }, [])
       )
 
-    if (isLoading) return <ActivityIndicator style={{ flex: 1 }} />;
-    if (isError || (filtered === undefined)) return <Text>Something went wrong</Text>;
+    if (isLoading) return <ActivityIndicator style={{ flex: 1 }} />
+    if (isError || (filtered === undefined)) return <Text>Something went wrong</Text>
 
     return (
         <SafeAreaView style={{flex: 1, position: 'relative', backgroundColor: '#F2F3F5'}}>

@@ -1,32 +1,52 @@
 import React from 'react'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import FooterComponent from '../../components/FooterComponent'
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import { setLanguage } from '../../store/slices/i18nSlice'
 
 const LanguageScreen = ({ navigation }) => {
+    const { t } = useTranslation()
+    const dispatch = useDispatch()
+    const currentLanguage = useSelector(state => state.i18n.language)
+    const { i18n } = useTranslation()
+
+    const handleLanguageChange = (language) => {
+        if(currentLanguage === language) return
+
+        dispatch(setLanguage(language))
+        i18n.changeLanguage(language)
+      }
+
     return (
         <SafeAreaView style={{flex: 1, position: 'relative', backgroundColor: '#FFFFFF'}}>
             <ArrowDropdown navigation={navigation}/>
 
             <View style={styles.wrapper}>
-                <Text style={[styles.mainTitle, styles.interFont]}>Language</Text>
-
-                <View style={[styles.body, styles.border]}>
-                    <View style={styles.bodyBase}>
-                        <Image source={require('../../../assets/Globe.png')}/>
-                        <Text style={styles.title}>English</Text>
+                <Text style={[styles.mainTitle, styles.interFont]}>{t('language')}</Text>
+                <TouchableOpacity onPress={() => handleLanguageChange('en')}>
+                    <View style={[styles.body, styles.border]}>
+                        <View style={styles.bodyBase}>
+                            <Image source={require('../../../assets/Globe.png')}/>
+                            <Text style={styles.title}>English</Text>
+                        </View>
+                        <Image source={ currentLanguage === 'en' ? require('../../../assets/activeImg.png') : require('../../../assets/roundImg.png')}/>
                     </View>
-                    <Image source={require('../../../assets/activeImg.png')}/>
-                </View>
+                </TouchableOpacity>
 
-                <View style={[styles.body, styles.border]}>
-                    <View style={styles.bodyBase}>
-                        <Image source={require('../../../assets/Globe.png')}/>
-                        <Text style={styles.title}>Arabic</Text>
+                <TouchableOpacity onPress={() => handleLanguageChange('ar')}>
+                    <View style={[styles.body, styles.border]}>
+                   
+                        <View style={styles.bodyBase}>
+                            <Image source={require('../../../assets/Globe.png')}/>
+                            <Text style={styles.title}>Arabic</Text>
+                        </View>
+                        <Image source={currentLanguage === 'ar' ? require('../../../assets/activeImg.png') : require('../../../assets/roundImg.png')}/>
                     </View>
-                    <Image source={require('../../../assets/roundImg.png')}/>
-                </View>
+                </TouchableOpacity>
+
             </View>
         
             <FooterComponent navigation={navigation} />

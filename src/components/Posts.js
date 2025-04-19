@@ -1,16 +1,15 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 import { usePosts } from '../api/queryClient'
-import { useNavigation } from '@react-navigation/native'
 
-const Posts = ({ navigation }) => {
+const Posts = ({ navigation, title }) => {
   const { data, isLoading, isError } = usePosts()
   if (isLoading) return <Text>Loading...</Text>
   if (isError) return <Text>Error fetching data</Text>
 
   return (
     <View style={styles.postsWrapper}>
-        <Text style={styles.postsHeader}>Posts</Text>
+        <Text style={styles.postsHeader}>{title}</Text>
         <View style={styles.postsContainer}>
           {data.map(post => (
             <TouchableOpacity key={post.id} style={styles.postInfo} onPress={() => navigation.navigate('PostDetails', { post })}>

@@ -1,10 +1,12 @@
 import { useRoute } from '@react-navigation/native'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 import { Image, TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 
 
 const FooterComponent = ({ navigation }) => {    
     const route = useRoute()
+    const { t } = useTranslation()
 
     return (
         <View style={styles.footer}>
@@ -13,39 +15,39 @@ const FooterComponent = ({ navigation }) => {
                     { route.name === 'Home' ? 
                         <>
                             <Image style={styles.img} source={require('../../assets/footer/itemActive1.png')}/>
-                            <Text style={[styles.imgText, {color: '#FA8A34'} ]}>Home</Text>
+                            <Text style={[styles.imgText, {color: '#FA8A34'} ]}>{t('home')}</Text>
                         </>
                         :
                         <>
                             <Image style={styles.img} source={require('../../assets/footer/item1.png')}/>
-                            <Text style={[styles.imgText, {color: '#858C94'}]}>Home</Text>
+                            <Text style={[styles.imgText, {color: '#858C94'}]}>{t('home')}</Text>
                         </>
                     }
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.imgContainer}>
                     <Image style={styles.img} source={require('../../assets/footer/item2.png')}/>
-                    <Text style={[styles.imgText, route.name === 'Portfolio' ? {color: '#FA8A34'} : {color: '#858C94'}]}>Portfolio</Text>
+                    <Text style={[styles.imgText, route.name === 'Portfolio' ? {color: '#FA8A34'} : {color: '#858C94'}]}>{t('portfolio')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.imgContainer} onPress={() => navigation.navigate('Search')}>
                     <Image style={styles.img} source={require('../../assets/footer/item3.png')}/>
-                    <Text style={[styles.imgText, route.name === 'Search' ? {color: '#FA8A34'} : {color: '#858C94'}]}>Search</Text>
+                    <Text style={[styles.imgText, route.name === 'Search' ? {color: '#FA8A34'} : {color: '#858C94'}]}>{t('search')}</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.imgContainer} onPress={() => navigation.navigate('Settings')}>
                     {route.name === 'Settings' ?
                         <>
                             <Image style={styles.img} source={require('../../assets/footer/itemActive4.png')}/>
-                            <Text style={[styles.imgText, {color: '#FA8A34'}]}>Profile</Text>
+                            <Text style={[styles.imgText, {color: '#FA8A34'}]}>{t('profile')}</Text>
                         </>
                         :
                         <>
                             <Image style={styles.img} source={route.name === 'Language' ? require('../../assets/footer/more.png') : require('../../assets/footer/item4.png')}/>
                             {route.name === 'Language' ? 
-                                <Text style={[styles.imgText, {color: '#FA8A34'}]}>Language</Text>
+                                <Text style={[styles.imgText, {color: '#FA8A34'}]}>{t('language')}</Text>
                                 :
-                                <Text style={[styles.imgText, {color: '#858C94'}]}>Profile</Text>
+                                <Text style={[styles.imgText, {color: '#858C94'}]}>{t('profile')}</Text>
                             }
                         </>
                     }

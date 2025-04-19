@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from 'react'
+import React, {  useState } from 'react'
 import { View, TextInput, Text, StyleSheet, TouchableOpacity, Image, ImageBackground } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as SecureStore from 'expo-secure-store'
 import HeaderComponent from '../../components/HeaderComponent'
 import CustomButton from '../../components/CustomButton'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
 import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { loginSuccess } from '../../store/slices/authSlice'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import { useTranslation } from 'react-i18next'
@@ -17,7 +16,7 @@ const LoginScreen = ({ navigation }) => {
     const dispatch = useDispatch()
     const [isPasswordVisible, setIsPasswordVisible] = useState(false) 
     const [isLoginError, setIsLoginError] = useState(false)
-    const { t } = useTranslation('signIn')
+    const { t } = useTranslation()
 
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible)
@@ -69,7 +68,7 @@ const LoginScreen = ({ navigation }) => {
                     }}
                 >
                     <View style={styles.container}> 
-                        <HeaderComponent title={t('login')}/>
+                        <HeaderComponent title={'Login'}/>
 
                         <View style={styles.wrapper}>
                             <Text style={{display: isLoginError ? 'flex' : 'none', color: '#D63C41', marginLeft: 16, fontFamily: 'Inter-Regular', fontSize: 15}}>Error: Invalid E-mail or Password</Text>

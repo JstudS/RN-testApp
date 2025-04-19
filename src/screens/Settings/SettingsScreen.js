@@ -1,17 +1,20 @@
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ArrowDropdown from '../../components/ArrowDropdown'
-import { Image, Pressable, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { useUser } from '../../api/queryClient'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import FooterComponent from '../../components/FooterComponent'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { logout } from '../../store/slices/authSlice'
+import { useTranslation } from 'react-i18next'
 
 const SettingsScreen = ({ navigation }) => {
     const userData = useSelector(state => state.auth.userProfile)
     const dispatch = useDispatch()
+    const { t } = useTranslation()
 
-    const logout = () => {
+    const logoutUser = () => {
         dispatch(logout())
+        navigation.replace('Welcome')
     }
 
     return (
@@ -20,7 +23,7 @@ const SettingsScreen = ({ navigation }) => {
 
             <View style={styles.wrapper}>
                 <View style={styles.headerWrapper}>
-                    <Text style={[styles.mainTitle, styles.interFont]}>Settings</Text>
+                    <Text style={[styles.mainTitle, styles.interFont]}>{t('settings')}</Text>
                     <View style={[styles.header, styles.border]}>
                         <Image source={require('../../../assets/roundImg.png')}/>
                         <Text style={styles.title}>{`${userData.firstName} ${userData.lastName}`}</Text>   
@@ -29,27 +32,25 @@ const SettingsScreen = ({ navigation }) => {
 
                 <View style={styles.settingsWrapper}>
                     <View style={styles.settingsBase}>
-                        <Text style={[styles.text, styles.interFont]}>Basic</Text>
+                        <Text style={[styles.text, styles.interFont]}>{t('basic')}</Text>
                         <TouchableOpacity style={[styles.body, styles.border]} onPress={() => navigation.navigate('Language')}>
                             <View style={styles.bodyBase}>
                                 <Image source={require('../../../assets/Globe.png')}/>
-                                <Text style={styles.title}>Language</Text>
+                                <Text style={styles.title}>{t('language')}</Text>
                             </View>
                             <Image source={require('../../../assets/arrow-dropdownGrey.png')}/>
                         </TouchableOpacity>
                     </View>
 
                     <View style={styles.settingsBase}>
-                        <Text style={[styles.text, styles.interFont]}>Other</Text>
-                        <View style={[styles.body, styles.border]}>
+                        <Text style={[styles.text, styles.interFont]}>{t('other')}</Text>
+                        <TouchableOpacity style={[styles.body, styles.border]} onPress={logoutUser}>
                             <View style={styles.bodyBase}>
                                 <Image source={require('../../../assets/logout.png')}/>
-                                <TouchableOpacity onPress={logout}>
-                                    <Text style={styles.title}>Log Out</Text>
-                                </TouchableOpacity>
+                                    <Text style={styles.title}>{t('logout')}</Text>
                             </View>
                             <Image source={require('../../../assets/arrow-dropdownGrey.png')}/>
-                        </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>

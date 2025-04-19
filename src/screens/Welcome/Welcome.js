@@ -1,15 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { Image, ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import CustomButton from '../../components/CustomButton'
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
 
 
 
 const Welcome = ({}) => {
     const navigation = useNavigation()
-    const { t } = useTranslation('welcome')
+    const { t } = useTranslation()
 
     const columnOneArr = [ 
         {
@@ -86,8 +86,8 @@ const Welcome = ({}) => {
                         </View>
                     </View>
                     <View>
-                        <TouchableOpacity>
-                            <Text onPress={handleSignIn} style={styles.signUp}>{t('signIn')}</Text>
+                        <TouchableOpacity onPress={handleSignIn}>
+                            <Text style={styles.signUp}>{t('signIn')}</Text>
                         </TouchableOpacity>
                         <CustomButton bolder={true} label={t('signUp')} onPressFunc={handleSignUp}/>
                     </View>

@@ -1,16 +1,18 @@
 import React, { useCallback, useState } from 'react'
 import { View, Text, StyleSheet, Image, Pressable, Alert } from 'react-native'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import * as SecureStore from 'expo-secure-store'
 import ArrowDropdown from '../../components/ArrowDropdown'
 import CustomButton from '../../components/CustomButton'
 import PinHeader from '../../components/PinHeader'
+import { useTranslation } from 'react-i18next'
 
 const PinSetupScreen = ({ navigation }) => {
     const [pin, setPin] = useState('')
     const [repeatPin, setRepeatPin] = useState('')
     const [isConfirmStep, setIsConfirmStep] = useState(false)
+    const { t } = useTranslation() 
 
     const handlePress = (val) => {
       !isConfirmStep
@@ -76,12 +78,12 @@ const PinSetupScreen = ({ navigation }) => {
 
                 <View style={styles.pinHeader}>
                 {!isConfirmStep ? 
-                  <PinHeader label={'Create a Pin code'}/>
+                  <PinHeader label={t('createPin')}/>
                   :
-                  <PinHeader label={'Repeat a Pin code'}/>
+                  <PinHeader label={t('repeatPin')}/>
                 }
                 <View style={styles.digits}>
-                    <Text style={styles.subtitle}>enter 5 digit code:</Text>
+                    <Text style={styles.subtitle}>{t('digit')}:</Text>
                     <View style={styles.dots}>
                     {[...Array(5)].map((_, i) => (
                       <View
@@ -127,7 +129,7 @@ const PinSetupScreen = ({ navigation }) => {
             </View>
             
             <View style={styles.button}>
-                <CustomButton label={'Continue'} onPressFunc={handleContinue}/>
+                <CustomButton label={t('continue')} onPressFunc={handleContinue}/>
             </View>
         </SafeAreaView>
 
